@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="grid">
+    <div class="grid-item">
+        {% for pin in pins %}
+        {% if pin.get_type == 'video' %}
+        <video autoplay muted loop>
+            <source src="{{ pin.file.url }}">
+        </video>
+        {% elif pin.get_type == 'image' %}
+        <img src="{{pin.file.url}}" alt="{{pin.title}}">
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+<script>
+    $('.grid').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true
+    });
+
+</script>
+
+{% endblock %}

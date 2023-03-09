@@ -1,0 +1,95 @@
+
+
+
+
+
+
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <h1><b>{{ board.title }}</b></h1>
+        {% if request.user == board.user %}
+        <a href="{% url 'boards:edit_board' board.id %}" class="text-decoration-none">
+            <svg class="main-btn p-1 rounded-circle" class="gUZ pBj U9O kVc" height="25" width="25" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+            </svg>
+        </a>
+        {% endif %}
+        <img style="object-fit: cover;" src="{{ board.cover.url }}" class="rounded-circle" width="60" height="60">
+        <div class="mt-2">{{ board.description }}</div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="masonry">
+    {% for pin in pins %}
+    
+    <div class="brick">
+        <div class="crd">
+            <a class="m-2 text-decoration-none text-dark" href="{% url 'pins:pin_detail' pin.id %}">
+                {% if pin.get_type == 'video' %}
+                    
+                        <video autoplay muted loop>
+                            <source src="{{ pin.file.url }}">
+                        </video>
+                    
+                    
+                    {% elif pin.get_type == 'image' %}
+                    
+                        <img src="{{ pin.file.url }}" class="content-img">
+                    {% endif %}
+                        <div class="overlay">
+                            <div class="text">
+                                <p class="fw-bold" style="
+                                overflow: hidden;
+                                color:white;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                width:150px;
+                                ">{{pin.title}}</p>
+                            </div>
+                            <div class="text">
+                                <button class="fw-bold rounded-pill" style="
+                                
+                                background-color:#DA70D6;
+                                position: absolute;
+                                right:5px;
+                                ">Save</button>
+                            </div>
+                            
+                            <div class="text">
+                                    <p class="fw-bold"  style="
+                                                position: absolute;
+                                                color:white;
+                                                bottom:3px;
+                                                left:3px;
+                                                ">{{pin.link}}
+                                    </p>
+                            </div>
+                            
+                            
+                        </div>
+            </a>
+        </div>
+            
+            
+                    <div>
+                        <h5 class="card-title">{{pin.title}}</h5>
+                        <div class="d-flex">
+                            <img src="{{ request.user.profile.photo.url }}" class="avatar rounded-circle">
+                            <span class="username">{{pin.user.username}}</span>
+                        </div>
+                        
+                      </div>
+                    
+        
+        
+    </div>
+    
+   {% endfor %}
+</div>
+
+{% endblock %}

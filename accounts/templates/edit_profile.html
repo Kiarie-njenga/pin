@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2 pt-4 me-5 pb-5">
+            <p class="text-black"><b>Public profile</b></p>
+            <p class="text-black"><b>Account settings</b></p>
+        </div>
+        <div class="col-md-8 ps-5 pe-5 pt-3 pb-5">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2 class="text-black"><b>Public Profile</b></h2>
+                <p class="mb-4" >People visiting your profile will see the following info</p>
+                <div class="row mt-1">
+                    <div class="col-md-1 me-4">
+                        <label for="">Photo</label>
+                        <img 
+                            style="object-fit: cover;" 
+                            width="80"
+                            height="80" 
+                            class="rounded-circle" 
+                            src="{{ request.user.profile.photo.url }}" 
+                        />
+                    </div>
+                    <div class="col-md-5 mt-5 mb-4">
+                        {{ form.photo }}
+                    </div>
+                    <div class="col-md-3 mt-5 mb-4"></div>
+                    <div class="col-md-4 mt-3">
+                        <label class="mb-1" for="">First Name</label>
+                        {{ form.fname }}
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label class="mb-1" for="">Last Name</label>
+                        {{ form.lname }}
+                    </div>
+                    <div class="col-md-8 mt-3">
+                        <label class="mb-1" for="">About</label>
+                        {{ form.about }}
+                    </div>
+                    <div class="col-md-8 mt-3">
+                        <label class="mb-1" for="">Pronouns</label>
+                        {{ form.pronouns }}
+                    </div>
+                    <div class="col-md-8 mt-3">
+                        <label class="mb-1" for="">Website</label>
+                        {{ form.website }}
+                    </div>
+                    <div class="col-md-8 mt-3">
+                        <button type="submit" class="red-btn btn ps-4 pe-4 pt-3 pb-3 text-white"><b>Save</b></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+<div class="widget widget--ht-lg widget--wd-lg infinite-scroll" id="pins-widget">
+	<div class="pins" id="pins-list">
+		<div class="pin-sizer"></div>
+		{% for pin in pins_list %}
+		<div class="pin" id="pin-id-{{ forloop.counter }}">
+			<div class="pin-content">
+				{% if pin.file %}
+				<div class="pin-content__top">
+					
+					<img class="pin-img" src="{{ pin.file.url }}" />
+					
+					<div class="overlay"></div>
+					<p class="pin-desc">{{ pin.description }}</p>
+					<a class="pin-link" href="{{ pin.link }}">Source</a>
+				</div>
+				{% endif %}
+				<div class="pin-content__bottom">
+					<p class="pin-title">{{ pin.title }}</p>
+					
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
