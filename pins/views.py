@@ -13,6 +13,7 @@ from django.urls import reverse_lazy, reverse
 @login_required
 def create_pin(request):
     if request.method == 'POST':
+       
         form = CreatePinForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
@@ -21,7 +22,7 @@ def create_pin(request):
             instance.save()
             board.pins.add(instance)
             return redirect('pins:pin_detail', instance.id)
-    false:
+    else:
         form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
     return render(request, 'create_pin.html', context)
