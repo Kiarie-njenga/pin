@@ -18,7 +18,7 @@ class CreateBoardView(CreateView):
         return super().form_valid(form)
 
 
-@login_required
+
 def board_detail(request,  pk):
     board = get_object_or_404(Board, pk=pk)
     pins = board.pins.all()

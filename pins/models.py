@@ -13,7 +13,7 @@ class Pin(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name='boards', null=True, blank=False
     )
-    file = models.FileField(upload_to='pins')
+    file = models.FileField(upload_to='pins', validators=[validate_file_size])
     title = models.CharField(max_length=250)
     link = models.CharField(max_length=250, default='', blank=True)
     description = models.TextField(default='', blank=True)

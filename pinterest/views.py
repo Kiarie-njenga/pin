@@ -6,7 +6,7 @@ from boards.models import Board
 from django.db.models import Q
 
 
-@login_required
+
 def home(request):
     pins = Pin.objects.select_related('user').exclude(file='')
     boards=Board.objects.select_related('user').filter(user=request.user)

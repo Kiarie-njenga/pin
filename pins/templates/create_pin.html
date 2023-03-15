@@ -8,7 +8,7 @@
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy  }}
-      <button type="submit" style="background-color:#DA70D6;" class="btn mt-3">Post</button>
+      <button type="submit" style="background-color:#DA70D6;" class="btn mt-3 mb-3">Post</button>
     </form>
     </div>
     </div>
@@ -16,4 +16,5 @@
     <div class="col-md-3"></div>
 </div>
 </div>
+
     {% endblock %}

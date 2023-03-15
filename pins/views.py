@@ -21,7 +21,8 @@ def create_pin(request):
             instance.save()
             board.pins.add(instance)
             return redirect('pins:pin_detail', instance.id)
-    form = CreatePinForm(request.user)
+    felse:
+        form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
     return render(request, 'create_pin.html', context)
 
@@ -61,7 +62,7 @@ def add_comment(request, id):
             instance.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def delete_comment(request, id):
     comment = get_object_or_404(Comment, id=id).delete()
     return redirect(request.META.get('HTTP_REFERER'))
@@ -89,7 +90,7 @@ def get_related_pins(id):
     return set(related_pins)
 
 
-@login_required
+
 def pin_detail(request, id):
     pin = Pin.objects.select_related('user__profile').filter(id=id).first()
     saved_pin = request.user.pin_user.filter(id=id).first()
