@@ -21,7 +21,7 @@ def create_pin(request):
             instance.save()
             board.pins.add(instance)
             return redirect('pins:pin_detail', instance.id)
-    felse:
+    false:
         form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
     return render(request, 'create_pin.html', context)

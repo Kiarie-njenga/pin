@@ -10,6 +10,8 @@ django-debug-toolbar = "*"
 psycopg2-binary = "*"
 pillow = "==9.2.0"
 crispy-bootstrap5 = "*"
+python-dotenv = "==0.21.0"
+dj-database-url = "==1.2.0"
 
 [dev-packages]
 
