@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from accounts.models import User
 from boards.models import Board
-
+from .validators import validate_file_size
 
 class Pin(models.Model):
     user = models.ForeignKey(
