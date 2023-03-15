@@ -43,16 +43,16 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
-    'debug_toolbar',
+    #'debug_toolbar',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
     'pins.apps.PinsConfig',
     'pinterest.apps.PinterestConfig',
 ]
 
-INTERNAL_IPS=['127.0.0.1',]
+#INTERNAL_IPS=['127.0.0.1',]
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
