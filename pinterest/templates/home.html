@@ -18,9 +18,12 @@
 
       <div class="wrapper text-dark" style="list-style:none;">
         <li class="nav-item   active" role="presentation"><a href="#001" class="text-decoration-none text-dark" aria-controls="001" role="tab">For You</a></li>
-        {% for board in boards %} 
+         
+        {% if user.is_authenticated %}
+        {% for board in request.user.board_user.all %} 
         <li class="nav-item fw-bold" role="presentation"><a href="{% url 'boards:boards'  title=board.title %}" class="text-decoration-none text-dark" aria-controls="002" role="tab">{{board.title}}</a></li>
         {% endfor %}
+        {% endif %}
       </div>
    
 
@@ -80,7 +83,7 @@
                     <div>
                         <h5 class="card-title">{{pin.title}}</h5>
                         <div class="d-flex">
-                            <img src="{{ request.user.profile.photo.url }}" class="avatar rounded-circle">
+                            <img src="{{ pin.user.profile.photo.url }}" class="avatar rounded-circle">
                             <span class="username">{{pin.user.username}}</span>
                         </div>
                         

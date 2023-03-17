@@ -43,6 +43,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    def get_absolute_url(self):
+        return reverse('accounts:profile', kwargs={'username':self.user.username})
+
 
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')

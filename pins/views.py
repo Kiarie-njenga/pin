@@ -91,13 +91,12 @@ def get_related_pins(id):
     return set(related_pins)
 
 
-
 def pin_detail(request, id):
     pin = Pin.objects.select_related('user__profile').filter(id=id).first()
-    saved_pin = request.user.pin_user.filter(id=id).first()
-    is_following = request.user.followers.filter(following=pin.user).first()
-    save_to_board_form = SaveToBoard(request.user, instance=saved_pin)
-    edit_form = EditPinForm(request.user, instance=pin)
+    saved_pin = request.user.pin_user.filter(id=id).first() if request.user.is_authenticated else None
+    is_following = request.user.followers.filter(following=pin.user).first() if request.user.is_authenticated else None
+    save_to_board_form = SaveToBoard(request.user, instance=saved_pin) if request.user.is_authenticated else None
+    edit_form = EditPinForm(request.user, instance=pin) if request.user.is_authenticated else None
     comment_form = CommentForm()
     comments=Comment.objects.select_related('user__profile').filter(pin=pin)
     context = {
@@ -112,11 +111,10 @@ def pin_detail(request, id):
     return render(request, 'pin_detail.html', context)
 
 
-@login_required
 def created_pins(request, username):
     user = get_object_or_404(User, username=username)
     created_pins = user.pin_user.all()
-    is_following = request.user.followers.filter(following=user).first()
+    is_following = request.user.followers.filter(following=user).first() if request.user.is_authenticated else None
     context = {
         'created_pins': created_pins,
         'user': user,

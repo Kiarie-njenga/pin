@@ -38,6 +38,7 @@
           
         <button class="btn rounded-circle" style="background-color:#DA70D6;"  value="{{request.GET.q}}" type="submit"><i class="bi bi-search"></i></button>
         </form>
+	{% if user.is_authenticated %}
         <div class="ms-">
           {% if request.user == user %}
           <!-- plus icon | create board and pin dropdown menu -->
@@ -54,7 +55,7 @@
         </div>
         {% endif %}
         </div>
-        <a href="{% url 'accounts:profile' request.user.username %}">
+        <a href="{% url 'accounts:profile' user.username %}">
           <img src="{{ request.user.profile.photo.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <div class="dropdown text-end">
@@ -66,7 +67,10 @@
             <li><a class="dropdown-item" href="{% url 'accounts:user_logout' %}">Sign out</a></li>
           </ul>
         </div>
-      </div>
+      {% else %}
+      <a href="{% url 'accounts:user_login' %}" id="loginBtn" class=" btn text-white" style="background-color:#DA70D6;"><b>Login</b></a>
+      <a href="{% url 'accounts:user_register' %}" class="main-btn btn text-black ms-3"><b>Sign Up</b></a>
+      {% endif %}
     </div>
   </header>
     <main class="ms-3 me-3">

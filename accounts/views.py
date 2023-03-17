@@ -73,11 +73,11 @@ def unfollow(request, username):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required
+
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     boards = user.board_user.all()
-    is_following = request.user.followers.filter(following=user).first()
+    is_following = request.user.followers.filter(following=user).first() if request.user.is_authenticated else None
     create_board_form = CreateBoardForm()
     context = {
         'user': user,

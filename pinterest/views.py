@@ -1,3 +1,9 @@
+
+
+
+
+
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views  import View
@@ -9,7 +15,7 @@ from django.db.models import Q
 
 def home(request):
     pins = Pin.objects.select_related('user').exclude(file='')
-    boards=Board.objects.select_related('user').filter(user=request.user)
+    boards=Board.objects.select_related('user').all()
     context = {'pins':pins[:49], 'boards':boards}
     return render(request, 'home.html', context)
 

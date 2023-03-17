@@ -145,4 +145,4 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # login_required decorator will redirect user to this Url
-LOGIN_URL = 'accounts:user_login'
+LOGIN_URL='accounts:user_login'
