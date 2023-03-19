@@ -41,10 +41,10 @@
                         </video>
                     
                     
-                    {% elif pin.get_type == 'image' %}
+                 {% else %}
                     
                         <img src="{{ pin.file.url }}" class="content-img">
-                    {% endif %}
+                 {% endif %}
                         <div class="overlay">
                             <div class="text">
                                 <p class="fw-bold" style="
