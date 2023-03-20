@@ -33,7 +33,7 @@ class User(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(default='profiles/default.png', upload_to='profiles')
+    photo = models.ImageField(default='default.png', upload_to='profiles')
     about = models.TextField()
     fname = models.CharField(max_length=300)
     lname = models.CharField(max_length=300)

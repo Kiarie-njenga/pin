@@ -132,18 +132,20 @@
     </div>
     {% else %}
     <!-- user created pins -->
-    <div class="row">
+    <div class="masonry">
         {% for pin in created_pins %}
-        <div class="img-container col-md-2 ms-2 me-4 mb-3">
-            <a href="{% url 'pins:pin_detail' pin.id %}">
-                {% if pin.get_type == 'video' %}
-                    <video autoplay muted loop class="video" >
-                        <source src="{{ pin.file.url }}" >
-                    </video>
-                {% else %}
-                    <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
-                {% endif %}
-            </a>
+        <div class="brick">
+            <div class="crd">
+                <a href="{% url 'pins:pin_detail' pin.id %}">
+                    {% if pin.get_type == 'video' %}
+                        <video autoplay muted loop class="video" >
+                            <source src="{{ pin.file.url }}" >
+                        </video>
+                    {% else %}
+                        <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
+                    {% endif %}
+                </a>
+            </div>
         </div>
         {% endfor %}
     </div>

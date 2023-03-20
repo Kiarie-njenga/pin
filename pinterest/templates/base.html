@@ -25,7 +25,7 @@
 <body>
   <nav id="navbar-example2" class="navbar navbar-light bg-light px-3 sticky-top">
     <a class="navbar-brand" href="{% url 'pinterest:home' %}"><img class="bookcover" src="{% static 'pinex-logo.png' %}" width="100" height="70"></a>
-    
+    <a class="nav-link"  href="{% url 'pinterest:home' %}" aria-current="page"><i class="bi bi-house-fill"></i></a>
       <form action="{% url 'pinterest:search' %}" class="d-flex">
         <input name="q" style="background-color: #e1e1e1;" type="search" class="pt-2 pb-2 form-control border rounded-pill" placeholder="Search" aria-label="Search">
         
@@ -49,7 +49,7 @@
           {% endif %}
           </div>
           <a href="{% url 'accounts:profile' user.username %}">
-            <img src="{{ request.user.profile.photo.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="{{ request.user.profile.photo.url }}" alt="" width="32" height="32" class="rounded-circle">
           </a>
           <div class="dropdown text-end">
             <a href="#" class="ms-3 d-block link-dark text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
