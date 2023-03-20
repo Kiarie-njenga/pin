@@ -40,7 +40,7 @@ class EditProfileForm(ModelForm):
     
     class Meta:
         model = Profile
-        fields = ['photo', 'about', 'fname', 'lname', 'pronouns', 'website']
+        fields = ['photo', 'about', 'fname', 'lname', 'website']
 
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)

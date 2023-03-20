@@ -35,11 +35,11 @@ class User(AbstractBaseUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='default.png', upload_to='profiles')
-    about = models.TextField()
+    about = models.TextField(default='', blank=True)
     fname = models.CharField(max_length=300)
     lname = models.CharField(max_length=300)
-    pronouns = models.CharField(max_length=100)
-    website = models.CharField(max_length=100)
+    pronouns = models.CharField(max_length=100, default='', blank=True)
+    website = models.CharField(max_length=100, default='', blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
