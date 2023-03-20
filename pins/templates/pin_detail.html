@@ -18,7 +18,7 @@
                 <video autoplay muted controls class="pin-detail-img d-block">
                     <source src="{{ pin.file.url }}">
                 </video>
-                {% elif pin.get_type == 'image' %}
+                {% else %}
                 <img src="{{ pin.file.url }}" class="pin-detail-img img-fluid" style="border-radius: 30px;">
                 {% endif %}
             </div>
