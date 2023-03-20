@@ -140,7 +140,7 @@
                     <video autoplay muted loop class="video" >
                         <source src="{{ pin.file.url }}" >
                     </video>
-                {% elif pin.get_type == 'image' %}
+                {% else %}
                     <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
                 {% endif %}
             </a>
