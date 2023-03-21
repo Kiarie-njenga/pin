@@ -142,7 +142,7 @@
                 <video class="p-2 edit-modal-video" autoplay muted>
                     <source src="{{ pin.file.url }}">
                 </video>
-                {% elif pin.get_type == 'image' %}
+                {% else %}
                 <img src="{{ pin.file.url }}" class="mt-4 p-2 edit-modal-img" />
                 {% endif %}
             </div>
@@ -163,7 +163,7 @@
                             </video>
                         
                         
-                        {% elif pin.get_type == 'image' %}
+                        {% else %}
                         
                             <img src="{{ pin.file.url }}" class="content-img">
                         {% endif %}

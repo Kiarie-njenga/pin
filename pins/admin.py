@@ -1,6 +1,18 @@
+
+
+
+
+
+
+
+
 from django.contrib import admin
 
 from .models import Pin, Comment
 
-admin.site.register(Pin)
+class PinAdmin(admin.ModelAdmin):
+    list_display=['title', 'user', 'phone']
+    search_fields=['phone']
+    list_filter=['date_created']
+admin.site.register(Pin, PinAdmin)
 admin.site.register(Comment)
