@@ -135,7 +135,7 @@
     <div class="row">
         {% for pin in created_pins %}
         <div class="img-container col-md-2 ms-2 me-4 mb-3">
-            <a href="{% url 'pins:pin_detail' pin.id %}">
+            <a href="{% url 'pins:pin_detail' pin.slug %}">
                 {% if pin.get_type == 'video' %}
                     <video autoplay muted loop class="video" >
                         <source src="{{ pin.file.url }}" >

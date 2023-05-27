@@ -8,24 +8,28 @@ from boards.models import Board
 from accounts.forms import EditProfileForm
 from accounts.models import User, Follow
 from django.urls import reverse_lazy, reverse
+from django.template.defaultfilters import slugify
+from django.db.models import Q
 
 
-@login_required
-def create_pin(request):
-    if request.method == 'POST':
-       
-        form = CreatePinForm(request.user, request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            board = Board.objects.filter(id=instance.board.id).first()
-            instance.save()
-            board.pins.add(instance)
-            return redirect('pins:pin_detail', instance.id)
-    else:
-        form = CreatePinForm(request.user)
-    context = {'title': 'create pin', 'form': form} 
-    return render(request, 'create_pin.html', context)
+
+
+
+
+
+
+
+class PinCreateView(LoginRequiredMixin, CreateView):
+    form_class=CreatePinForm
+    template_name='create_pin.html'
+    success_url=reverse_lazy('pinterest:home')
+
+    
+    
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        form.instance.slug=slugify(form.instance.title)
+        return super().form_valid(form)
 
 
 
@@ -91,24 +95,28 @@ def get_related_pins(id):
     return set(related_pins)
 
 
-def pin_detail(request, id):
-    pin = Pin.objects.select_related('user__profile').filter(id=id).first()
-    saved_pin = request.user.pin_user.filter(id=id).first() if request.user.is_authenticated else None
-    is_following = request.user.followers.filter(following=pin.user).first() if request.user.is_authenticated else None
-    save_to_board_form = SaveToBoard(request.user, instance=saved_pin) if request.user.is_authenticated else None
-    edit_form = EditPinForm(request.user, instance=pin) if request.user.is_authenticated else None
+def pin_detail(request, slug):
+    template_name = "pin_detail.html"
+    pin = get_object_or_404(Pin, slug=slug)
+    related_pins=Pin.objects.filter(
+            Q(title__icontains=pin.board.title)|
+            Q(description__icontains=pin.title)|
+            Q(board__title=pin.board.title)
+            
+        )
     comment_form = CommentForm()
     comments=Comment.objects.select_related('user__profile').filter(pin=pin)
-    context = {
-        'pin': pin,
-        'save_to_board_form': save_to_board_form,
-        'is_following': is_following,
-        'edit_form': edit_form,
-        'comment_form': comment_form,
-        'related_pins': get_related_pins(id),
-        'comments':comments,
-    }
-    return render(request, 'pin_detail.html', context)
+    return render(
+        request,
+        template_name,
+        {
+            "pin": pin,
+            "comments": comments,
+            
+            "comment_form": comment_form,
+            'related_pins':related_pins,
+        },
+    )
 
 
 def created_pins(request, username):

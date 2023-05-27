@@ -1,5 +1,4 @@
 """pinterest_clone URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
@@ -17,15 +16,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from pins.sitemaps import PinSitemap
+sitemaps = {
+    "pins": PinSitemap,
+    
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('debug/', include('debug_toolbar.urls')),
+    path('debug/', include('debug_toolbar.urls')),
     path('', include('pinterest.urls', namespace='pinterest')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('boards/', include('boards.urls', namespace='boards')),
     path('pins/', include('pins.urls', namespace='pins')),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
 
 if settings.DEBUG:

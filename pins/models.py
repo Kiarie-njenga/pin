@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from django.db import models
 from mimetypes import guess_type
 from django.db.models.signals import post_save
@@ -5,6 +19,8 @@ from django.dispatch import receiver
 from accounts.models import User
 from boards.models import Board
 from .validators import validate_file_size
+from ckeditor.fields import RichTextField
+from django.urls import reverse
 
 class Pin(models.Model):
     user = models.ForeignKey(
@@ -14,9 +30,10 @@ class Pin(models.Model):
         Board, on_delete=models.CASCADE, related_name='boards', null=True, blank=False
     )
     file = models.FileField(upload_to='pins', validators=[validate_file_size])
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
     link = models.CharField(max_length=250, default='', blank=True)
-    description = models.TextField(default='', blank=True)
+    description = RichTextField()
     phone=models.CharField(max_length=15,  default='' , blank=True, help_text='Contact phone number')
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -32,7 +49,9 @@ class Pin(models.Model):
             return 'image'
 
     def get_absolute_url(self):
-        return reverse('pins:pin_detail', args=[str(self.id)])
+        
+
+        return reverse("pins:pin_detail", kwargs={"slug": str(self.slug)})
 
 
     

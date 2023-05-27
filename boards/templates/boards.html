@@ -21,7 +21,7 @@
     
     <div class="brick">
         <div class="crd">
-            <a class="m-2 text-decoration-none text-dark" href="{% url 'pins:pin_detail' pin.id %}">
+            <a class="m-2 text-decoration-none text-dark" href="{% url 'pins:pin_detail' pin.slug %}">
                 {% if pin.get_type == 'video' %}
                     
                         <video autoplay muted loop>

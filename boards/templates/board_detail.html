@@ -29,18 +29,11 @@
     
     <div class="brick">
         <div class="crd">
-            <a class="m-2 text-decoration-none text-dark" href="{% url 'pins:pin_detail' pin.id %}">
-                {% if pin.get_type == 'video' %}
-                    
-                        <video autoplay muted loop>
-                            <source src="{{ pin.file.url }}">
-                        </video>
-                    
-                    
-                    {% else %}
+            <a class="m-2 text-decoration-none text-dark" href="{% url 'pins:pin_detail' pin.slug %}">
+                
                     
                         <img src="{{ pin.file.url }}" class="content-img">
-                    {% endif %}
+                    
                         <div class="overlay">
                             <div class="text">
                                 <p class="fw-bold" style="
